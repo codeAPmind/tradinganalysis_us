@@ -1,0 +1,23 @@
+# 环境与密钥
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 数据缓存与报告
+stock_analysis_system/cache/
+stock_analysis_system/reports/
+stock_analysis_system/logs/
+
+# Python 环境
+.venv/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
