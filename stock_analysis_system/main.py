@@ -19,7 +19,8 @@ from langchain_openai import ChatOpenAI
 from agents import (
     MacroAgent, SectorAgent, FundamentalsAgent, InsiderAgent,
     CapitalFlowAgent, TechnicalAgent, SentimentAgent, EventCalendarAgent,
-    OptionsChainAgent, BullResearcher, BearResearcher, ResearchManager,
+    OptionsChainAgent, HistoricalEventAgent,
+    BullResearcher, BearResearcher, ResearchManager,
     TraderAgent, RiskManagerAgent,
 )
 from graph.main_workflow import build_workflow
@@ -53,6 +54,7 @@ def analyze(ticker: str, account_size: float, portfolio: dict = None) -> dict:
         "sentiment":    SentimentAgent("Sentiment", llm, gateway),
         "events":       EventCalendarAgent("Events", llm, gateway),
         "options":      OptionsChainAgent("Options", llm, gateway, iv_db),
+        "history":      HistoricalEventAgent("History", llm, gateway),
         "bull":         BullResearcher("Bull", llm, gateway),
         "bear":         BearResearcher("Bear", llm, gateway),
         "manager":      ResearchManager("Manager", llm, gateway),

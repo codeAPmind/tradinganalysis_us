@@ -26,7 +26,7 @@ def build_workflow(agents: dict) -> Any:
             return {"reports": state["reports"] + [report]}
         return node
 
-    for key in ["macro", "sector", "fundamentals", "insider", "capital", "technical", "sentiment", "events", "options"]:
+    for key in ["macro", "sector", "fundamentals", "insider", "capital", "technical", "sentiment", "events", "options", "history"]:
         workflow.add_node(f"run_{key}", make_analysis_node(key))
 
     # L4 辩论节点
@@ -87,7 +87,8 @@ def build_workflow(agents: dict) -> Any:
         ("run_technical", "run_sentiment"),
         ("run_sentiment", "run_events"),
         ("run_events", "run_options"),
-        ("run_options", "bull_research"),
+        ("run_options", "run_history"),
+        ("run_history", "bull_research"),
         ("bull_research", "bear_research"),
         ("bear_research", "moderate"),
         ("moderate", "trade"),

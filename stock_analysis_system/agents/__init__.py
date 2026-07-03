@@ -8,6 +8,7 @@ from .technical import TechnicalAgent
 from .sentiment import SentimentAgent
 from .event_calendar import EventCalendarAgent
 from .options_chain import OptionsChainAgent
+from .historical_event import HistoricalEventAgent
 from .researchers import BullResearcher, BearResearcher, ResearchManager
 from .trader import TraderAgent
 from .risk import RiskManagerAgent
@@ -19,4 +20,5 @@ __all__ = [
     "SentimentAgent", "EventCalendarAgent", "OptionsChainAgent",
     "BullResearcher", "BearResearcher", "ResearchManager",
     "TraderAgent", "RiskManagerAgent",
+    "HistoricalEventAgent",
 ]
