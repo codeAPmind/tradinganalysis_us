@@ -7,6 +7,7 @@ class AnalysisState(TypedDict):
     ticker: str
     account_size: float
     portfolio: dict
+    comparables: list        # 可选的手动可比公司列表
     reports: list
     bull_thesis: dict
     bear_thesis: dict
@@ -28,6 +29,13 @@ def build_workflow(agents: dict) -> Any:
 
     for key in ["macro", "sector", "fundamentals", "insider", "capital", "technical", "sentiment", "events", "options", "history"]:
         workflow.add_node(f"run_{key}", make_analysis_node(key))
+
+    # comparable 节点单独处理（需要传 comparables 参数）
+    def comparable_node(state: AnalysisState) -> dict:
+        comps = state.get("comparables") or None
+        report = agents["comparable"].analyze(state["ticker"], comparables=comps)
+        return {"reports": state["reports"] + [report]}
+    workflow.add_node("run_comparable", comparable_node)
 
     # L4 辩论节点
     def bull_node(state: AnalysisState) -> dict:
@@ -88,7 +96,8 @@ def build_workflow(agents: dict) -> Any:
         ("run_sentiment", "run_events"),
         ("run_events", "run_options"),
         ("run_options", "run_history"),
-        ("run_history", "bull_research"),
+        ("run_history", "run_comparable"),
+        ("run_comparable", "bull_research"),
         ("bull_research", "bear_research"),
         ("bear_research", "moderate"),
         ("moderate", "trade"),
