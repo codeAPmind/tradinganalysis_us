@@ -37,7 +37,7 @@ COMPARABLES: dict[str, list[dict]] = {
             ),
         },
         {
-            "ticker": "ZILLOW",
+            "ticker": "Z",
             "anchor_date": "2021-11-02",
             "anchor_reason": (
                 "Zillow 宣布关闭 iBuying 业务（Zillow Offers），"
