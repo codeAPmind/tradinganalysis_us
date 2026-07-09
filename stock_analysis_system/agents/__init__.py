@@ -10,6 +10,7 @@ from .event_calendar import EventCalendarAgent
 from .options_chain import OptionsChainAgent
 from .historical_event import HistoricalEventAgent
 from .comparable_company import ComparableCompanyAgent, ComparableSpec
+from .institutional_flow import InstitutionalFlowAgent
 from .researchers import BullResearcher, BearResearcher, ResearchManager
 from .trader import TraderAgent
 from .risk import RiskManagerAgent
@@ -23,4 +24,5 @@ __all__ = [
     "TraderAgent", "RiskManagerAgent",
     "HistoricalEventAgent",
     "ComparableCompanyAgent", "ComparableSpec",
+    "InstitutionalFlowAgent",
 ]

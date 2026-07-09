@@ -27,7 +27,7 @@ def build_workflow(agents: dict) -> Any:
             return {"reports": state["reports"] + [report]}
         return node
 
-    for key in ["macro", "sector", "fundamentals", "insider", "capital", "technical", "sentiment", "events", "options", "history"]:
+    for key in ["macro", "sector", "fundamentals", "insider", "capital", "technical", "sentiment", "events", "options", "history", "inst_flow"]:
         workflow.add_node(f"run_{key}", make_analysis_node(key))
 
     # comparable 节点单独处理（需要传 comparables 参数）
@@ -97,7 +97,8 @@ def build_workflow(agents: dict) -> Any:
         ("run_events", "run_options"),
         ("run_options", "run_history"),
         ("run_history", "run_comparable"),
-        ("run_comparable", "bull_research"),
+        ("run_comparable", "run_inst_flow"),
+        ("run_inst_flow", "bull_research"),
         ("bull_research", "bear_research"),
         ("bear_research", "moderate"),
         ("moderate", "trade"),
